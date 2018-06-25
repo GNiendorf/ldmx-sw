@@ -17,6 +17,8 @@ namespace ldmx {
 
     void HcalVetoProcessor::configure(const ParameterSet& pSet) {
         totalPEThreshold_  = pSet.getDouble("pe_threshold"); 
+        MaxXY_             = pSet.getDouble("MaxXY"); 
+        MaxZ_              = pSet.getDouble("MaxZ"); 
     }
 
     void HcalVetoProcessor::produce(Event& event) {
@@ -31,6 +33,9 @@ namespace ldmx {
         for (int iHit = 0; iHit < hcalHits->GetEntriesFast(); ++iHit) { 
             HcalHit* hcalHit = (HcalHit*) hcalHits->At(iHit);
             //std::cout << "[ HcalVeto ]: Hit PE: " << hcalHit->getPE() << std::endl;
+            if ( std::abs(hcalHit->getX()) > MaxXY_ ||  std::abs(hcalHit->getY()) > MaxXY_ || 
+                 hcalHit->getZ() > MaxZ_) continue;
+            
             totalPe += hcalHit->getPE(); 
             maxPE = std::max(maxPE,hcalHit->getPE());
         }

@@ -54,6 +54,12 @@ namespace ldmx {
             /** Total PE threshold. */
             double totalPEThreshold_{8};
 
+            /** Maximum X/Y position of hit to be in a veto w.r.t center of HCAL */
+            double MaxXY_{1600};
+
+            /** Maximum Z position of hit to be in a veto w.r.t first layer of HCAL*/
+            double MaxZ_{3500};
+
     }; // HcalVetoProcessor
 }
 
